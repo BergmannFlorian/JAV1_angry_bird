@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class Wasp extends MovingObject {
 
     public Wasp(int posX, int posY) {
-        super(new Texture("wasp.png"), posX, posY, -0.8f);
+        super(new Texture("wasp.png"), posX, posY, 0.3f);
     }
 
     @Override

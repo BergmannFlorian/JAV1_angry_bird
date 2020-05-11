@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class PhysicalObject extends Sprite {
     public PhysicalObject(Texture texture, int posX, int posY, float scal){
         super(texture);
-        scale(scal);
+        this.setScale(scal);
         setPosition(posX, posY);
     }
 }
