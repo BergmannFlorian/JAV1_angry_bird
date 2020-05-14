@@ -6,7 +6,7 @@ public abstract class TextualObject extends PhysicalObject {
     protected String word;
 
     public TextualObject(Texture texture, int posX, int posY, float scal) {
-        super(new Texture("block.png"), posX, posY, scal);
+        super(texture, posX, posY, scal);
     }
 
     protected String getWord(){

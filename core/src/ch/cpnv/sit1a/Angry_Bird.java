@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector3;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 import ch.cpnv.sit1a.models.*;
 
@@ -27,6 +28,8 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 	Wasp wasp;
 	Sprite slingshotBack;
 	Sprite slingshotFront;
+	ArrayList<PhysicalObject> blocks;
+	ArrayList<Pig> pigs;
 
 	// ------------------------------------------------------------
 	// Main methods
@@ -41,6 +44,16 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 		wasp = new Wasp(100,100);
 		slingshotBack = new Sprite(new Texture("slingshot1.png"));
 		slingshotFront = new Sprite(new Texture("slingshot2.png"));
+		blocks = new ArrayList<PhysicalObject>();
+		for(int posX = 500; posX < w; posX += 86){
+			PhysicalObject block = new PhysicalObject(new Texture("block.png"), posX, 150, 1);
+			blocks.add(block);
+		}
+		pigs = new ArrayList<Pig>();
+		for(int posX = 700; posX < w; posX += 300){
+			Pig pig = new Pig(posX, -110);
+			pigs.add(pig);
+		}
 		Gdx.input.setInputProcessor(this);
 	}
 	@Override
@@ -49,6 +62,8 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 		update();
 		background.setSize(w, h);
 		background.draw(batch);
+		for(PhysicalObject block : blocks){block.draw(batch);}
+		for(PhysicalObject pig : pigs){pig.draw(batch);}
 		slingshotBack.setPosition(200, 220);
 		slingshotBack.draw(batch);
 		bird.draw(batch);
@@ -68,6 +83,7 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 	public void update(){
 		float dt = Gdx.graphics.getDeltaTime();
 		bird.move(dt);
+		wasp.move(dt);
 	}
 	public void reset(){
 		bird.reset();
