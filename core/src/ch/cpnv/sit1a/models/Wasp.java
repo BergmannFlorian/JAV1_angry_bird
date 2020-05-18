@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class Wasp extends MovingObject {
     long startTime = TimeUtils.millis();
     public Wasp(int posX, int posY) {
-        super(new Texture("wasp.png"), posX, posY, 0.3f);
+        super(new Texture("wasp.png"), posX, posY, 0.2f);
     }
 
     @Override

@@ -3,6 +3,7 @@ package ch.cpnv.sit1a.models;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Intersector;
 
 import java.util.ArrayList;
 
@@ -38,5 +39,11 @@ public class Scenery {
     public void draw(Batch batch){
         for(Sprite sprite : sceneSprite){sprite.draw(batch);}
         for(PhysicalObject object : sceneObject){object.draw(batch);}
+    }
+    public boolean overlaps(PhysicalObject object1){
+        for(PhysicalObject object2 : sceneObject){
+            if(object1.overlaps(object2))return true;
+        }
+        return false;
     }
 }
