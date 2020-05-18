@@ -23,13 +23,9 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 	SpriteBatch batch;
 	float w;
 	float h;
-	Sprite background;
 	Bird bird;
 	Wasp wasp;
-	Sprite slingshotBack;
-	Sprite slingshotFront;
-	ArrayList<PhysicalObject> blocks;
-	ArrayList<Pig> pigs;
+	Scenery scene;
 
 	// ------------------------------------------------------------
 	// Main methods
@@ -38,37 +34,18 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 	public void create () {
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
+		scene = new Scenery(w, h);
 		batch = new SpriteBatch();
-		background = new Sprite(new Texture("background.jpg"));
 		bird = new Bird(-10,200);
 		wasp = new Wasp(100,100);
-		slingshotBack = new Sprite(new Texture("slingshot1.png"));
-		slingshotFront = new Sprite(new Texture("slingshot2.png"));
-		blocks = new ArrayList<PhysicalObject>();
-		for(int posX = 500; posX < w; posX += 86){
-			PhysicalObject block = new PhysicalObject(new Texture("block.png"), posX, 150, 1);
-			blocks.add(block);
-		}
-		pigs = new ArrayList<Pig>();
-		for(int posX = 700; posX < w; posX += 300){
-			Pig pig = new Pig(posX, -110);
-			pigs.add(pig);
-		}
 		Gdx.input.setInputProcessor(this);
 	}
 	@Override
 	public void render () {
 		batch.begin();
 		update();
-		background.setSize(w, h);
-		background.draw(batch);
-		for(PhysicalObject block : blocks){block.draw(batch);}
-		for(PhysicalObject pig : pigs){pig.draw(batch);}
-		slingshotBack.setPosition(200, 220);
-		slingshotBack.draw(batch);
+		scene.draw(batch);
 		bird.draw(batch);
-		slingshotFront.setPosition(200, 220);
-		slingshotFront.draw(batch);
 		wasp.draw(batch);
 		batch.end();
 	}
