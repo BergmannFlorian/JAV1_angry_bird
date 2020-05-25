@@ -3,7 +3,6 @@ package ch.cpnv.sit1a.models;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Intersector;
 
 import java.util.ArrayList;
 
@@ -14,14 +13,8 @@ public class Scenery {
     public Scenery(float width, float height){
         sceneSprite = new ArrayList<Sprite>();
         Sprite background = new Sprite(new Texture("background.jpg"));
-        Sprite slingshotBack = new Sprite(new Texture("slingshot1.png"));
-        Sprite slingshotFront = new Sprite(new Texture("slingshot2.png"));
         background.setSize(width, height);
-        slingshotBack.setPosition(200, 220);
-        slingshotFront.setPosition(200, 220);
         sceneSprite.add(background);
-        sceneSprite.add(slingshotBack);
-        sceneSprite.add(slingshotFront);
 
         sceneObject = new ArrayList<PhysicalObject>();
         for(int posX = 500; posX < width; posX += 86){
@@ -33,9 +26,10 @@ public class Scenery {
             sceneObject.add(pig);
         }
     }
-    public void addElement(PhysicalObject object){
+    public void addObject(PhysicalObject object){
         sceneObject.add(object);
     }
+    public void addSprite(PhysicalObject object){ sceneSprite.add(object); }
     public void draw(Batch batch){
         for(Sprite sprite : sceneSprite){sprite.draw(batch);}
         for(PhysicalObject object : sceneObject){object.draw(batch);}

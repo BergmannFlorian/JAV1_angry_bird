@@ -16,6 +16,7 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 	Bird bird;
 	Wasp wasp;
 	Scenery scene;
+	Slingshot slingshot;
 
 	// ------------------------------------------------------------
 	// Main methods
@@ -26,7 +27,8 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 		h = Gdx.graphics.getHeight();
 		scene = new Scenery(w, h);
 		batch = new SpriteBatch();
-		bird = new Bird(-10,200);
+		bird = new Bird(0,230);
+		slingshot = new Slingshot(bird);
 		wasp = new Wasp(100,100);
 		Gdx.input.setInputProcessor(this);
 	}
@@ -35,7 +37,9 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 		batch.begin();
 		update();
 		scene.draw(batch);
+		slingshot.drawBack(batch);
 		bird.draw(batch);
+		slingshot.drawFront(batch);
 		wasp.draw(batch);
 		batch.end();
 	}
@@ -50,6 +54,7 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 	public void update(){
 		float dt = Gdx.graphics.getDeltaTime();
 		bird.move(dt);
+		slingshot.update();
 		wasp.move(dt);
 		if(scene.overlaps(bird))reset();
 		if(wasp.overlaps(bird))reset();
