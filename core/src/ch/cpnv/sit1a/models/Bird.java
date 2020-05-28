@@ -59,4 +59,5 @@ public class Bird extends MovingObject {
     }
 
     public boolean getmoving(){ return moving; }
+    public Vector2 getOrigin(){ return new Vector2(originX, originY); }
 }

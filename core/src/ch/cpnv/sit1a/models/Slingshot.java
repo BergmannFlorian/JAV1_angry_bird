@@ -11,6 +11,7 @@ public class Slingshot extends Sprite {
     Sprite slingshotFront;
     Sprite rubberBack;
     Sprite rubberFront;
+    Vector2 origin;
 
     public Slingshot(Bird bird){
         this.bird = bird;
@@ -22,17 +23,21 @@ public class Slingshot extends Sprite {
         slingshotFront.setPosition(bird.getCenter().x-50, bird.getCenter().y-250);
         rubberBack.setPosition(bird.getCenter().x+30, bird.getCenter().y);
         rubberFront.setPosition(bird.getCenter().x-30, bird.getCenter().y);
-        rubberFront.setSize(30, 0);
-        rubberBack.setSize(30, 0);
+        origin = new Vector2(bird.getCenter().x, bird.getCenter().y);
+        rubberFront.setSize(0, 0);
+        rubberBack.setSize(0, 0);
     }
     public void update(){
         if(!bird.getmoving()){
-            double theta = 180.0 / Math.PI * Math.atan2(bird.getX() - this.getX(), bird.getY() - this.getY());
-            rubberBack.setRotation((float) (theta));
-            double dist = Math.hypot(Math.abs(bird.getX() - this.getX()), Math.abs(bird.getOriginY() - this.getY()));
-            rubberFront.setRegionHeight((int) dist);
-            rubberBack.setSize(30, (float) dist);
+            Vector2 vector = bird.getCenter().sub(origin);
+            updateRubber(rubberBack, vector, 30);
+            updateRubber(rubberFront, vector, -30);
         }
+    }
+    public void updateRubber(Sprite rubber, Vector2 vector, int decalX){
+        rubber.setBounds(origin.x+decalX, origin.y, vector.len(), 20);
+        rubber.setOrigin(0,0);
+        rubber.setRotation((vector.angle()));
     }
     public void drawBack(Batch batch){
         slingshotBack.draw(batch);
@@ -41,5 +46,9 @@ public class Slingshot extends Sprite {
     public void drawFront(Batch batch){
         rubberFront.draw(batch);
         slingshotFront.draw(batch);
+    }
+    public void reset(){
+        rubberFront.setSize(0, 0);
+        rubberBack.setSize(0, 0);
     }
 }
