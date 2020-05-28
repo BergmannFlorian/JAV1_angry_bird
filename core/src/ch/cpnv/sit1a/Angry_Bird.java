@@ -29,7 +29,7 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 		batch = new SpriteBatch();
 		bird = new Bird(0,230);
 		slingshot = new Slingshot(bird);
-		wasp = new Wasp(100,100);
+		wasp = new Wasp(100,300);
 		Gdx.input.setInputProcessor(this);
 	}
 	@Override

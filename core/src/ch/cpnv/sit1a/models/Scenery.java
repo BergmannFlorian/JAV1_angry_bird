@@ -3,8 +3,10 @@ package ch.cpnv.sit1a.models;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Scenery {
     private ArrayList<PhysicalObject> sceneObject;
@@ -17,12 +19,21 @@ public class Scenery {
         sceneSprite.add(background);
 
         sceneObject = new ArrayList<PhysicalObject>();
+        //Ground
         for(int posX = 500; posX < width; posX += 86){
             PhysicalObject block = new PhysicalObject(new Texture("block.png"), posX, 150, 1);
             sceneObject.add(block);
         }
+        //Block Pile
+        for(int i = 0; i < 20 ; i++){
+            PhysicalObject block = new PhysicalObject(new Texture("block.png"), MathUtils.random(500, (int)width), 150, 1);
+            moveUpToOverlaps(block);
+            sceneObject.add(block);
+        }
+        //Pig
         for(int posX = 700; posX < width; posX += 300){
             Pig pig = new Pig(posX, -110);
+            moveUpToOverlaps(pig);
             sceneObject.add(pig);
         }
     }
@@ -39,5 +50,17 @@ public class Scenery {
             if(object1.overlaps(object2))return true;
         }
         return false;
+    }
+    public void moveUpToOverlaps(PhysicalObject object1){
+        boolean overlaps;
+        do{
+            overlaps = false;
+            for(PhysicalObject object2 : sceneObject){
+                if(object1.overlaps(object2)){
+                    overlaps = true;
+                    object1.translateY(object2.getHeight());
+                }
+            }
+        }while(overlaps);
     }
 }
