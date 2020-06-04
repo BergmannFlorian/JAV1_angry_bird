@@ -3,6 +3,8 @@ package ch.cpnv.sit1a.models;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 
 public class Slingshot extends Sprite {
@@ -46,6 +48,9 @@ public class Slingshot extends Sprite {
     public void drawFront(Batch batch){
         rubberFront.draw(batch);
         slingshotFront.draw(batch);
+    }
+    public boolean arround(Vector2 point, int radius){
+        return origin.dst(point) < radius;
     }
     public void reset(){
         rubberFront.setSize(0, 0);

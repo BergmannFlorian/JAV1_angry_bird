@@ -4,7 +4,9 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 
 import ch.cpnv.sit1a.models.*;
@@ -79,7 +81,7 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 	}
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		if(!bird.getmoving()) {
+		if(!bird.getmoving() && slingshot.arround(new Vector2(screenX, h - screenY), 300)) {
 			bird.setPosition(screenX - (bird.getWidth() / 2), h - screenY - (bird.getHeight() / 2));
 		}
 		return false;
