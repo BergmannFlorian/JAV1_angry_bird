@@ -2,32 +2,100 @@ package ch.cpnv.sit1a;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
-public class Angry_Bird extends ApplicationAdapter {
+import java.awt.Point;
+import java.awt.Rectangle;
+
+import ch.cpnv.sit1a.customException.OutOfSceneryException;
+import ch.cpnv.sit1a.models.*;
+
+public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 	SpriteBatch batch;
-	Texture img;
-	
+	float w;
+	float h;
+	Bird bird;
+	Wasp wasp;
+	Scenery scene;
+	Slingshot slingshot;
+
+	// ------------------------------------------------------------
+	// Main methods
+
 	@Override
 	public void create () {
+		w = Gdx.graphics.getWidth();
+		h = Gdx.graphics.getHeight();
+		scene = new Scenery(w, h);
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		bird = new Bird(0,230);
+		slingshot = new Slingshot(bird);
+		wasp = new Wasp(100,300);
+		Gdx.input.setInputProcessor(this);
 	}
-
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		batch.draw(img, 0, 0);
+		update();
+		scene.draw(batch);
+		slingshot.drawBack(batch);
+		bird.draw(batch);
+		slingshot.drawFront(batch);
+		wasp.draw(batch);
 		batch.end();
 	}
-	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
 	}
+
+	// ------------------------------------------------------------
+	// Methods
+
+	public void update(){
+		float dt = Gdx.graphics.getDeltaTime();
+		bird.move(dt);
+		slingshot.update();
+		wasp.move(dt);
+		if(scene.overlaps(bird))reset();
+		if(wasp.overlaps(bird))reset();
+	}
+	public void reset(){
+		bird.reset();
+	}
+
+	// ------------------------------------------------------------
+	// Inputs
+
+	@Override
+	public boolean keyTyped(char character) {
+		if(character == 'r')reset();
+		return false;
+	}
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		bird.fire();
+		slingshot.reset();
+		return false;
+	}
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		if(!bird.getmoving() && slingshot.arround(new Vector2(screenX, h - screenY), 300)) {
+			bird.setPosition(screenX - (bird.getWidth() / 2), h - screenY - (bird.getHeight() / 2));
+		}
+		return false;
+	}
+
+	@Override
+	public boolean keyDown(int keycode) { return false; }
+	@Override
+	public boolean keyUp(int keycode) { return false; }
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) { return false; }
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) { return false; }
+	@Override
+	public boolean scrolled(int amount) { return false; }
 }
