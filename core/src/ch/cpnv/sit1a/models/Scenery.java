@@ -1,18 +1,22 @@
 package ch.cpnv.sit1a.models;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 
 import java.util.ArrayList;
-import java.util.Random;
+
+import ch.cpnv.sit1a.customException.OutOfSceneryException;
 
 public class Scenery {
     private ArrayList<PhysicalObject> sceneObject;
     private ArrayList<Sprite> sceneSprite;
+    float maxWidth = Gdx.graphics.getWidth();
+    float maxHeight = Gdx.graphics.getHeight();
 
-    public Scenery(float width, float height){
+    public Scenery(float width, float height) {
         sceneSprite = new ArrayList<Sprite>();
         Sprite background = new Sprite(new Texture("background.jpg"));
         background.setSize(width, height);
@@ -38,7 +42,12 @@ public class Scenery {
         }
     }
     public void addObject(PhysicalObject object){
-        sceneObject.add(object);
+        try{
+            if(object.getX()<0 || object.getX()>maxWidth || object.getY()<0 || object.getY()>maxHeight)throw new OutOfSceneryException("Pig out of scenery");
+            sceneObject.add(object);
+        }catch(OutOfSceneryException e){
+            Gdx.app.log("OutOfSceneryException", e.getMessage());
+        }
     }
     public void addSprite(PhysicalObject object){ sceneSprite.add(object); }
     public void draw(Batch batch){

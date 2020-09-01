@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import ch.cpnv.sit1a.customException.OutOfSceneryException;
 import ch.cpnv.sit1a.models.*;
 
 public class Angry_Bird extends ApplicationAdapter implements InputProcessor{

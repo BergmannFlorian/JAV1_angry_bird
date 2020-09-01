@@ -18,7 +18,7 @@ public class Wasp extends MovingObject {
     @Override
     public void move(float dt) {
         long globalCounter = TimeUtils.timeSinceMillis(startTime);
-        Vector2 cycleLength = new Vector2(1500,300);
+        Vector2 cycleLength = new Vector2(1500,900);
         Vector2 cycleScale = new Vector2(900, 300);
         Vector2 centerPos = new Vector2(900, 800);
         float x = (float) Math.sin(globalCounter/cycleLength.x)*cycleScale.x + centerPos.x;
