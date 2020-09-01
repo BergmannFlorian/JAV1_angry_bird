@@ -26,19 +26,19 @@ public class Scenery {
         //Ground
         for(int posX = 500; posX < width; posX += 86){
             PhysicalObject block = new PhysicalObject(new Texture("block.png"), posX, 150, 1);
-            sceneObject.add(block);
+            addObject(block);
         }
         //Block Pile
         for(int i = 0; i < 20 ; i++){
             PhysicalObject block = new PhysicalObject(new Texture("block.png"), MathUtils.random(500, (int)width), 150, 1);
             moveUpToOverlaps(block);
-            sceneObject.add(block);
+            addObject(block);
         }
         //Pig
         for(int posX = 700; posX < width; posX += 300){
             Pig pig = new Pig(posX, -110);
             moveUpToOverlaps(pig);
-            sceneObject.add(pig);
+            addObject(pig);
         }
     }
     public void addObject(PhysicalObject object){
