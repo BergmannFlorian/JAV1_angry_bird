@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 
 public class PhysicalObject extends Sprite {
+    private boolean destructible = true;
     public PhysicalObject(Texture texture, int posX, int posY, float scal){
         super(texture);
         this.setScale(scal);
@@ -24,4 +25,6 @@ public class PhysicalObject extends Sprite {
     public Vector2 getCenter(){
         return new Vector2(this.getX()+(this.getWidth()/2), this.getY()+(this.getHeight()/2));
     }
+    public boolean destructible(){ return this.destructible; };
+    public void setdestructible(boolean destructible){ this.destructible = destructible; };
 }

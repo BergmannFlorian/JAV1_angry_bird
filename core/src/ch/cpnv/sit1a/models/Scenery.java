@@ -26,6 +26,7 @@ public class Scenery {
         //Ground
         for(int posX = 500; posX < width; posX += 86){
             PhysicalObject block = new PhysicalObject(new Texture("block.png"), posX, 150, 1);
+            block.setdestructible(false);
             addObject(block);
         }
         //Block Pile
@@ -56,7 +57,10 @@ public class Scenery {
     }
     public boolean overlaps(PhysicalObject object1){
         for(PhysicalObject object2 : sceneObject){
-            if(object1.overlaps(object2))return true;
+            if(object1.overlaps(object2)){
+                if(object2.destructible()) sceneObject.remove(object2);
+                return true;
+            }
         }
         return false;
     }
