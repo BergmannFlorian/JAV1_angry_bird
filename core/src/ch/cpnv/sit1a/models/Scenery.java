@@ -36,7 +36,7 @@ public class Scenery {
             addObject(block);
         }
         //Pig
-        for(int i = 0; i < 5 ; i++){
+        for(int i = 0; i < 10 ; i++){
             Pig pig = new Pig(MathUtils.random(500, (int)width-100), 150);
             moveUpToOverlaps(pig);
             addObject(pig);
