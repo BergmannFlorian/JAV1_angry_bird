@@ -55,10 +55,14 @@ public class Scenery {
         for(Sprite sprite : sceneSprite){sprite.draw(batch);}
         for(PhysicalObject object : sceneObject){object.draw(batch);}
     }
-    public boolean overlaps(PhysicalObject object1){
+    public boolean overlaps(PhysicalObject object1, Board board){
         for(PhysicalObject object2 : sceneObject){
             if(object1.overlaps(object2)){
-                if(object2.destructible()) sceneObject.remove(object2);
+                if(object2.destructible()) {
+                    if(object2.getClass() == Tnt.class)board.decreaseScore();
+                    else if(object2.getClass() == Pig.class)board.increaseScore();
+                    sceneObject.remove(object2);
+                }
                 return true;
             }
         }

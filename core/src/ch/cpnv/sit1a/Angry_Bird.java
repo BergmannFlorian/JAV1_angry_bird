@@ -63,7 +63,7 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 		bird.move(dt);
 		slingshot.update();
 		wasp.move(dt);
-		if(scene.overlaps(bird))reset();
+		if(scene.overlaps(bird, board))reset();
 		if(wasp.overlaps(bird))reset();
 	}
 	public void reset(){

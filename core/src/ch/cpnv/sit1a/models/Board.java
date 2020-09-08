@@ -25,6 +25,9 @@ public class Board extends Sprite {
         fontScore.getData().setScale(5);
     }
 
+    public void decreaseScore(){ score--; }
+    public void increaseScore(){ score++; }
+
     @Override
     public void draw(Batch batch) {
         super.draw(batch);
