@@ -32,10 +32,10 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 		h = Gdx.graphics.getHeight();
 		scene = new Scenery(w, h);
 		batch = new SpriteBatch();
-		bird = new Bird(0,230);
+		bird = new Bird(200,420);
 		slingshot = new Slingshot(bird);
-		wasp = new Wasp(100,300);
-		board = new Board((int)(w-2000)/2,(int)h-300, 350, 2000);
+		wasp = new Wasp(200,300);
+		board = new Board((int)(w-2000)/2,(int)h-250, 300, 2000);
 		Gdx.input.setInputProcessor(this);
 	}
 	@Override
@@ -86,7 +86,7 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 	}
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		if(!bird.getmoving() && slingshot.arround(new Vector2(screenX, h - screenY), 300)) {
+		if(!bird.getmoving() && slingshot.arround(new Vector2(screenX, h - screenY), 400)) {
 			bird.setPosition(screenX - (bird.getWidth() / 2), h - screenY - (bird.getHeight() / 2));
 		}
 		return false;

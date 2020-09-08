@@ -36,10 +36,16 @@ public class Scenery {
             addObject(block);
         }
         //Pig
-        for(int posX = 700; posX < width; posX += 300){
-            Pig pig = new Pig(posX, -110);
+        for(int i = 0; i < 5 ; i++){
+            Pig pig = new Pig(MathUtils.random(500, (int)width-100), 150);
             moveUpToOverlaps(pig);
             addObject(pig);
+        }
+        //Tnt
+        for(int i = 0; i < 5 ; i++){
+            Tnt tnt = new Tnt(MathUtils.random(500, (int)width-100), 150);
+            moveUpToOverlaps(tnt);
+            addObject(tnt);
         }
     }
     public void addObject(PhysicalObject object){

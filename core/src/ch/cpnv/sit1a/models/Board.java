@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Board extends Sprite {
-    private String word = "Test";
+    private String word = "Lorem ipsum dolor sit amet";
     private int score = 0;
     private BitmapFont fontWord, fontScore;
 

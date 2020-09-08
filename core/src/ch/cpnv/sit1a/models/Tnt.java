@@ -6,6 +6,6 @@ public class Tnt extends PhysicalObject {
     private int negativePoints;
 
     public Tnt(int posX, int posY) {
-        super(new Texture("tnt.png"), posX, posY, 1);
+        super(new Texture("tnt.png"), posX, posY, 0.1f);
     }
 }

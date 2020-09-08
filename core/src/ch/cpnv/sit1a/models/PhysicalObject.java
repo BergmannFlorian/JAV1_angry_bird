@@ -11,7 +11,7 @@ public class PhysicalObject extends Sprite {
     private boolean destructible = true;
     public PhysicalObject(Texture texture, int posX, int posY, float scal){
         super(texture);
-        this.setScale(scal);
+        this.setSize(this.getWidth()*scal, this.getHeight()*scal);
         setPosition(posX, posY);
     }
     public boolean overlaps(PhysicalObject object){
