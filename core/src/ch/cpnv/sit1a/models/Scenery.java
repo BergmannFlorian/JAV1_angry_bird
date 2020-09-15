@@ -9,14 +9,15 @@ import com.badlogic.gdx.math.MathUtils;
 import java.util.ArrayList;
 
 import ch.cpnv.sit1a.customException.OutOfSceneryException;
+import ch.cpnv.sit1a.models.data.Vocabulary;
 
 public class Scenery {
     private ArrayList<PhysicalObject> sceneObject;
     private ArrayList<Sprite> sceneSprite;
-    float maxWidth = Gdx.graphics.getWidth();
-    float maxHeight = Gdx.graphics.getHeight();
+    private float maxWidth = Gdx.graphics.getWidth();
+    private float maxHeight = Gdx.graphics.getHeight();
 
-    public Scenery(float width, float height) {
+    public Scenery(float width, float height, Vocabulary voc) {
         sceneSprite = new ArrayList<Sprite>();
         Sprite background = new Sprite(new Texture("background.jpg"));
         background.setSize(width, height);
@@ -37,7 +38,7 @@ public class Scenery {
         }
         //Pig
         for(int i = 0; i < 10 ; i++){
-            Pig pig = new Pig(MathUtils.random(500, (int)width-100), 150);
+            Pig pig = new Pig(MathUtils.random(500, (int)width-100), 150, voc.pickAWord());
             moveUpToOverlaps(pig);
             addObject(pig);
         }
@@ -66,7 +67,7 @@ public class Scenery {
     }
     public PhysicalObject overlaps(PhysicalObject object1){
         for(PhysicalObject object2 : sceneObject){
-            if(object1.overlaps(object2)) return object1;
+            if(object1.overlaps(object2)) return object2;
         }
         return null;
 
@@ -82,5 +83,20 @@ public class Scenery {
                 }
             }
         }while(overlaps);
+    }
+    public int countPig(){
+        int count = 0;
+        for(PhysicalObject object : sceneObject){
+            if(object.getClass() == Pig.class)count++;
+        }
+        return count;
+    }
+    public Pig getAPig(){
+        if(countPig()==0)return null;
+        PhysicalObject pig;
+        do {
+            pig = sceneObject.get(MathUtils.random(0, sceneObject.size()-1));
+        }while (pig.getClass() != Pig.class);
+        return (Pig)pig;
     }
 }

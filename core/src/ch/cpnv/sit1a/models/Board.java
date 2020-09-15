@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Board extends Sprite {
-    private String word = "Lorem ipsum dolor sit amet";
+    private String word;
     private int score = 0;
     private BitmapFont fontWord, fontScore;
 
@@ -24,6 +24,7 @@ public class Board extends Sprite {
         fontScore.setColor(Color.BLACK);
         fontScore.getData().setScale(5);
     }
+    public void setWord(String word){this.word = word;}
 
     public void decreaseScore(){ score--; }
     public void increaseScore(){ score++; }

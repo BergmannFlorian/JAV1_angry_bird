@@ -8,6 +8,6 @@ public class Bubble extends TextualObject {
     private Duration duration;
 
     public Bubble(int posX, int posY) {
-        super(new Texture("bubble.png"), posX, posY, 1);
+        super(new Texture("bubble.png"), posX, posY, 1, "?");
     }
 }

@@ -6,30 +6,36 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import ch.cpnv.sit1a.models.*;
+import ch.cpnv.sit1a.models.data.Vocabulary;
+import ch.cpnv.sit1a.providers.VocProvider;
 
 public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
-	SpriteBatch batch;
-	float w;
-	float h;
-	Bird bird;
-	Wasp wasp;
-	Scenery scene;
-	Slingshot slingshot;
-	Board board;
+	private SpriteBatch batch;
+	private float w;
+	private float h;
+	private Bird bird;
+	private Wasp wasp;
+	private Scenery scene;
+	private Slingshot slingshot;
+	private Board board;
+	private VocProvider vocSource = VocProvider.getInstance();
+	private Vocabulary voc;
 
 	// ------------------------------------------------------------
 	// Main methods
 
 	@Override
 	public void create () {
+		voc = vocSource.pickAVoc();
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
-		scene = new Scenery(w, h);
+		scene = new Scenery(w, h, voc);
 		batch = new SpriteBatch();
 		bird = new Bird(200,420);
 		slingshot = new Slingshot(bird);
 		wasp = new Wasp(200,300);
 		board = new Board((int)(w-2000)/2,(int)h-250, 300, 2000);
+		board.setWord(scene.getAPig().getWord().getValue1());
 		Gdx.input.setInputProcessor(this);
 	}
 	@Override
