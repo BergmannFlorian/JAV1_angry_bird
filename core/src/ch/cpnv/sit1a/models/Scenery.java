@@ -56,23 +56,20 @@ public class Scenery {
             Gdx.app.log("OutOfSceneryException", e.getMessage());
         }
     }
+    public void removeObject(PhysicalObject object){
+        sceneObject.remove(object);
+    }
     public void addSprite(PhysicalObject object){ sceneSprite.add(object); }
     public void draw(Batch batch){
         for(Sprite sprite : sceneSprite){sprite.draw(batch);}
         for(PhysicalObject object : sceneObject){object.draw(batch);}
     }
-    public boolean overlaps(PhysicalObject object1, Board board){
+    public PhysicalObject overlaps(PhysicalObject object1){
         for(PhysicalObject object2 : sceneObject){
-            if(object1.overlaps(object2)){
-                if(object2.destructible()) {
-                    if(object2.getClass() == Tnt.class)board.decreaseScore();
-                    else if(object2.getClass() == Pig.class)board.increaseScore();
-                    sceneObject.remove(object2);
-                }
-                return true;
-            }
+            if(object1.overlaps(object2)) return object1;
         }
-        return false;
+        return null;
+
     }
     public void moveUpToOverlaps(PhysicalObject object1){
         boolean overlaps;

@@ -3,14 +3,8 @@ package ch.cpnv.sit1a;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-
-import java.awt.Point;
-import java.awt.Rectangle;
-
-import ch.cpnv.sit1a.customException.OutOfSceneryException;
 import ch.cpnv.sit1a.models.*;
 
 public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
@@ -63,7 +57,13 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 		bird.move(dt);
 		slingshot.update();
 		wasp.move(dt);
-		if(scene.overlaps(bird, board))reset();
+		PhysicalObject itemOverlaps = scene.overlaps(bird);
+		if(itemOverlaps!=null){
+			if(itemOverlaps.getClass() == Tnt.class)board.decreaseScore();
+			else if(itemOverlaps.getClass() == Pig.class)board.increaseScore();
+			if(itemOverlaps.destructible())scene.removeObject(itemOverlaps);
+			reset();
+		}
 		if(wasp.overlaps(bird))reset();
 	}
 	public void reset(){
