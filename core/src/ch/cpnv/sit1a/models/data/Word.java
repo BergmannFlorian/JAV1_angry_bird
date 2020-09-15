@@ -6,7 +6,7 @@ public class Word {
     private boolean allocated = false;
     private boolean found = false;
 
-    private Word(String value1, String value2){
+    public Word(String value1, String value2){
         this.value1 = value1;
         this.value2 = value2;
     }
