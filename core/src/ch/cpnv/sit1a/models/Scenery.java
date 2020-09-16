@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 
@@ -71,6 +72,12 @@ public class Scenery {
         }
         return null;
 
+    }
+    public PhysicalObject touch(Vector2 point){
+        for(PhysicalObject object : sceneObject){
+            if(object.touch(point)) return object;
+        }
+        return null;
     }
     public void moveUpToOverlaps(PhysicalObject object1){
         boolean overlaps;

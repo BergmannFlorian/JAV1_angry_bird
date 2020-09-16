@@ -86,8 +86,18 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 	}
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		bird.fire();
-		slingshot.reset();
+		if(!bird.getmoving() && slingshot.arround(new Vector2(screenX, h - screenY), 400)) {
+			bird.fire();
+			slingshot.reset();
+		}
+		return false;
+	}
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		PhysicalObject object = scene.touch(new Vector2(screenX, h - screenY));
+		if(object != null && object.getClass() == Pig.class){
+
+		}
 		return false;
 	}
 	@Override
@@ -102,8 +112,6 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 	public boolean keyDown(int keycode) { return false; }
 	@Override
 	public boolean keyUp(int keycode) { return false; }
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) { return false; }
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) { return false; }
 	@Override
