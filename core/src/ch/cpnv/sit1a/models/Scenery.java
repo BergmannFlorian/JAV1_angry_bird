@@ -37,17 +37,17 @@ public class Scenery {
             moveUpToOverlaps(block);
             addObject(block);
         }
-        //Pig
-        for(int i = 0; i < 10 ; i++){
-            Pig pig = new Pig(MathUtils.random(500, (int)width-100), 150, voc.pickAWord());
-            moveUpToOverlaps(pig);
-            addObject(pig);
-        }
         //Tnt
         for(int i = 0; i < 5 ; i++){
             Tnt tnt = new Tnt(MathUtils.random(500, (int)width-100), 150);
             moveUpToOverlaps(tnt);
             addObject(tnt);
+        }
+        //Pig
+        for(int i = 0; i < 10 ; i++){
+            Pig pig = new Pig(MathUtils.random(500, (int)width-100), 150, voc.pickAWord());
+            moveUpToOverlaps(pig);
+            addObject(pig);
         }
     }
     public void addObject(PhysicalObject object){

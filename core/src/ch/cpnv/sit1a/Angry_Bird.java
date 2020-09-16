@@ -35,7 +35,7 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 		slingshot = new Slingshot(bird);
 		wasp = new Wasp(200,300);
 		board = new Board((int)(w-2000)/2,(int)h-250, 300, 2000);
-		board.setWord(scene.getAPig().getWord().getValue1());
+		board.setWord(scene.getAPig().getWord());
 		Gdx.input.setInputProcessor(this);
 	}
 	@Override
@@ -96,7 +96,7 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		PhysicalObject object = scene.touch(new Vector2(screenX, h - screenY));
 		if(object != null && object.getClass() == Pig.class){
-
+			((Pig) object).showOrHiddeBubble();
 		}
 		return false;
 	}
