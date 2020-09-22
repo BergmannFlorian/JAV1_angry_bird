@@ -22,11 +22,12 @@ public class Bubble extends TextualObject {
         font.getData().setScale(3);
         glyph = new GlyphLayout(font, word.getValue1());
         this.setSize((float)(glyph.width*1.5), glyph.height*4);
+        this.setX(this.getX()-(this.getWidth()/2));
     }
 
     @Override
     public void draw(Batch batch) {
         super.draw(batch);
-        font.draw(batch, glyph, this.getX()+(this.getWidth()/6),(float) (this.getY()+(this.getHeight()/1.6)));
+        font.draw(batch, glyph, this.getX()+(this.getWidth()/6),(float) (this.getY()+(this.getHeight()/1.4)));
     }
 }

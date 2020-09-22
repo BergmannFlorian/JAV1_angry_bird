@@ -34,7 +34,7 @@ public class Board extends Sprite {
     @Override
     public void draw(Batch batch) {
         super.draw(batch);
-        fontWord.draw(batch, word.getValue1(), this.getX()+(this.getWidth()/6),this.getY()+(this.getHeight()/2));
+        fontWord.draw(batch, word.getValue2(), this.getX()+(this.getWidth()/6),this.getY()+(this.getHeight()/2));
         fontScore.draw(batch, "Score : "+score, this.getX()+(this.getWidth()*3/4),this.getY()+(this.getHeight()/2));
     }
 }
