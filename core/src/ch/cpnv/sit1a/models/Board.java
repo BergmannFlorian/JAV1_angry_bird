@@ -27,9 +27,17 @@ public class Board extends Sprite {
         fontScore.getData().setScale(5);
     }
     public void setWord(Word word){this.word = word;}
+    public Word getWord(){return word;}
+    public Integer getScore(){return score;}
 
     public void decreaseScore(){ score--; }
+    public void decreaseScore(int decrease){ score-=decrease; }
     public void increaseScore(){ score++; }
+    public void increaseScore(int increase){ score+=increase; }
+
+    public void reset(){
+        score = 0;
+    }
 
     @Override
     public void draw(Batch batch) {

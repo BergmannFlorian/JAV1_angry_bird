@@ -65,14 +65,26 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 		wasp.move(dt);
 		PhysicalObject itemOverlaps = scene.overlaps(bird);
 		if(itemOverlaps!=null){
-			if(itemOverlaps.getClass() == Tnt.class)board.decreaseScore();
-			else if(itemOverlaps.getClass() == Pig.class)board.increaseScore();
 			if(itemOverlaps.destructible())scene.removeObject(itemOverlaps);
-			reset();
+			if(itemOverlaps.getClass() == Tnt.class)board.decreaseScore();
+			if(itemOverlaps.getClass() == Wasp.class)board.decreaseScore(5);
+			if(itemOverlaps.getClass() == Pig.class && ((Pig) itemOverlaps).getWord() == board.getWord()) {
+				board.increaseScore(5);
+				board.setWord(scene.getAPig().getWord());
+			}
+			else if(itemOverlaps.getClass() == Pig.class)board.increaseScore();
+			resetBird();
+			if(board.getScore() < 0)resetScene();
 		}
-		if(wasp.overlaps(bird))reset();
+		if(wasp.overlaps(bird))resetBird();
 	}
-	public void reset(){
+	public void resetBird(){
+		bird.reset();
+	}
+	public void resetScene(){
+		board.reset();
+		scene.generateScene(w,h,voc);
+		board.setWord(scene.getAPig().getWord());
 		bird.reset();
 	}
 
@@ -81,7 +93,8 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 
 	@Override
 	public boolean keyTyped(char character) {
-		if(character == 'r')reset();
+		if(character == 'r')resetBird();
+		if(character == 't')resetScene();
 		return false;
 	}
 	@Override

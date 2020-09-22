@@ -25,6 +25,10 @@ public class Scenery {
         sceneSprite.add(background);
 
         sceneObject = new ArrayList<PhysicalObject>();
+        generateScene(width, height, voc);
+    }
+    public void generateScene(float width, float height, Vocabulary voc){
+        sceneObject.clear();
         //Ground
         for(int posX = 500; posX < width; posX += 86){
             PhysicalObject block = new PhysicalObject(new Texture("block.png"), posX, 150, 1);
