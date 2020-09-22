@@ -6,8 +6,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import ch.cpnv.sit1a.models.data.Word;
+
 public class Board extends Sprite {
-    private String word = "Lorem ipsum dolor sit amet";
+    private Word word;
     private int score = 0;
     private BitmapFont fontWord, fontScore;
 
@@ -24,14 +26,23 @@ public class Board extends Sprite {
         fontScore.setColor(Color.BLACK);
         fontScore.getData().setScale(5);
     }
+    public void setWord(Word word){this.word = word;}
+    public Word getWord(){return word;}
+    public Integer getScore(){return score;}
 
     public void decreaseScore(){ score--; }
+    public void decreaseScore(int decrease){ score-=decrease; }
     public void increaseScore(){ score++; }
+    public void increaseScore(int increase){ score+=increase; }
+
+    public void reset(){
+        score = 0;
+    }
 
     @Override
     public void draw(Batch batch) {
         super.draw(batch);
-        fontWord.draw(batch, word, this.getX()+(this.getWidth()/6),this.getY()+(this.getHeight()/2));
+        fontWord.draw(batch, word.getValue2(), this.getX()+(this.getWidth()/6),this.getY()+(this.getHeight()/2));
         fontScore.draw(batch, "Score : "+score, this.getX()+(this.getWidth()*3/4),this.getY()+(this.getHeight()/2));
     }
 }
