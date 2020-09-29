@@ -1,4 +1,4 @@
-package ch.cpnv.sit1a;
+package ch.cpnv.sit1a.activities;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
