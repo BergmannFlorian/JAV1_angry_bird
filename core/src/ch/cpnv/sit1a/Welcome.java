@@ -3,59 +3,52 @@ package ch.cpnv.sit1a;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 
-import ch.cpnv.sit1a.models.*;
+import ch.cpnv.sit1a.models.Bird;
+import ch.cpnv.sit1a.models.Board;
+import ch.cpnv.sit1a.models.Bubble;
+import ch.cpnv.sit1a.models.PhysicalObject;
+import ch.cpnv.sit1a.models.Pig;
+import ch.cpnv.sit1a.models.Scenery;
+import ch.cpnv.sit1a.models.Slingshot;
+import ch.cpnv.sit1a.models.Tnt;
+import ch.cpnv.sit1a.models.Wasp;
 import ch.cpnv.sit1a.models.data.Vocabulary;
 import ch.cpnv.sit1a.providers.VocProvider;
 
-public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
+public class Welcome extends ApplicationAdapter implements InputProcessor{
 	private SpriteBatch batch;
 	private float w;
 	private float h;
-	private Bird bird;
-	private Wasp wasp;
-	private Scenery scene;
-	private Slingshot slingshot;
-	private Board board;
-	private VocProvider vocSource = VocProvider.getInstance();
-	private Vocabulary voc;
-	private ArrayList<Pig> pigBubble;
+	private ArrayList<Sprite> sceneSprite;
 
 	// ------------------------------------------------------------
 	// Main methods
 
 	@Override
 	public void create () {
-		voc = vocSource.pickAVoc();
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
-		pigBubble = new ArrayList<Pig>();
-		scene = new Scenery(w, h, voc);
 		batch = new SpriteBatch();
-		bird = new Bird(200,420);
-		slingshot = new Slingshot(bird);
-		wasp = new Wasp(200,300);
-		board = new Board((int)(w-2000)/2,(int)h-250, 300, 2000);
-		board.setWord(scene.getAPig().getWord());
+		sceneSprite = new ArrayList<Sprite>();
+
+		Sprite background = new Sprite(new Texture("background.jpg"));
+		background.setSize(w, h);
+		sceneSprite.add(background);
+
 		Gdx.input.setInputProcessor(this);
 	}
 	@Override
 	public void render () {
 		batch.begin();
 		update();
-		scene.draw(batch);
-		board.draw(batch);
-		slingshot.drawBack(batch);
-		bird.draw(batch);
-		slingshot.drawFront(batch);
-		wasp.draw(batch);
-		for (Pig pig : pigBubble) {
-			pig.getBubble().draw(batch);
-		}
+		for(Sprite sprite : sceneSprite){sprite.draw(batch);}
 		batch.end();
 	}
 	@Override
@@ -68,72 +61,19 @@ public class Angry_Bird extends ApplicationAdapter implements InputProcessor{
 
 	public void update(){
 		float dt = Gdx.graphics.getDeltaTime();
-		bird.move(dt);
-		slingshot.update();
-		wasp.move(dt);
-		PhysicalObject itemOverlaps = scene.overlaps(bird);
-		if(itemOverlaps!=null){
-			if(itemOverlaps.destructible())scene.removeObject(itemOverlaps);
-			if(itemOverlaps.getClass() == Tnt.class)board.decreaseScore();
-			if(itemOverlaps.getClass() == Wasp.class)board.decreaseScore(5);
-			if(itemOverlaps.getClass() == Pig.class) {
-				pigBubble.remove((Pig)itemOverlaps);
-				if(((Pig) itemOverlaps).getWord() == board.getWord()){
-					board.increaseScore(5);
-					board.setWord(scene.getAPig().getWord());
-				}else board.increaseScore();
-			}
-			resetBird();
-			if(board.getScore() < 0)resetScene();
-		}
-		if(wasp.overlaps(bird))resetBird();
-	}
-	public void resetBird(){
-		bird.reset();
-	}
-	public void resetScene(){
-		board.reset();
-		scene.generateScene(w,h,voc);
-		board.setWord(scene.getAPig().getWord());
-		bird.reset();
-		pigBubble.clear();
 	}
 
 	// ------------------------------------------------------------
 	// Inputs
 
 	@Override
-	public boolean keyTyped(char character) {
-		if(character == 'r')resetBird();
-		if(character == 't')resetScene();
-		return false;
-	}
+	public boolean keyTyped(char character) { return false; }
 	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		if(!bird.getmoving() && slingshot.arround(new Vector2(screenX, h - screenY), 400)) {
-			bird.fire();
-			slingshot.reset();
-		}
-		return false;
-	}
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) { return false; }
 	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		PhysicalObject object = scene.touch(new Vector2(screenX, h - screenY));
-		if(object != null && object.getClass() == Pig.class){
-			Bubble bubble = ((Pig) object).showOrHiddeBubble();
-			if ((bubble != null)) {pigBubble.add((Pig) object);
-			} else { pigBubble.remove((Pig) object); }
-		}
-		return false;
-	}
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) { return false; }
 	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		if(!bird.getmoving() && slingshot.arround(new Vector2(screenX, h - screenY), 400)) {
-			bird.setPosition(screenX - (bird.getWidth() / 2), h - screenY - (bird.getHeight() / 2));
-		}
-		return false;
-	}
-
+	public boolean touchDragged(int screenX, int screenY, int pointer) { return false; }
 	@Override
 	public boolean keyDown(int keycode) { return false; }
 	@Override
