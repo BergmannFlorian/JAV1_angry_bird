@@ -15,14 +15,10 @@ public class Pig extends TextualObject {
         this.word = word;
     }
 
-    public void showOrHiddeBubble(){
+    public Bubble showOrHiddeBubble(){
         bubble= bubble == null ? new Bubble(this) : null;
+        return bubble;
     }
     public Word getWord(){return word;}
-
-    @Override
-    public void draw(Batch batch) {
-        super.draw(batch);
-        if(bubble!=null) bubble.draw(batch);
-    }
+    public Bubble getBubble(){return bubble;}
 }
