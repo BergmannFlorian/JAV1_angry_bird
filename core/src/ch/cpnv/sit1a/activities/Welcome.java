@@ -3,34 +3,28 @@ package ch.cpnv.sit1a.activities;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 
-import ch.cpnv.sit1a.models.Bird;
-import ch.cpnv.sit1a.models.Board;
-import ch.cpnv.sit1a.models.Bubble;
-import ch.cpnv.sit1a.models.PhysicalObject;
-import ch.cpnv.sit1a.models.Pig;
-import ch.cpnv.sit1a.models.Scenery;
-import ch.cpnv.sit1a.models.Slingshot;
-import ch.cpnv.sit1a.models.Tnt;
-import ch.cpnv.sit1a.models.Wasp;
-import ch.cpnv.sit1a.models.data.Vocabulary;
-import ch.cpnv.sit1a.providers.VocProvider;
+import ch.cpnv.sit1a.Angry_Bird;
 
 public class Welcome extends ApplicationAdapter implements InputProcessor{
 	private SpriteBatch batch;
 	private float w;
 	private float h;
 	private ArrayList<Sprite> sceneSprite;
+	private BitmapFont fontWord;
 
 	// ------------------------------------------------------------
 	// Main methods
-
+	public Welcome(){
+		create();
+	}
 	@Override
 	public void create () {
 		w = Gdx.graphics.getWidth();
@@ -42,6 +36,10 @@ public class Welcome extends ApplicationAdapter implements InputProcessor{
 		background.setSize(w, h);
 		sceneSprite.add(background);
 
+		fontWord = new BitmapFont();
+		fontWord.setColor(Color.BLACK);
+		fontWord.getData().setScale(20);
+
 		Gdx.input.setInputProcessor(this);
 	}
 	@Override
@@ -49,6 +47,7 @@ public class Welcome extends ApplicationAdapter implements InputProcessor{
 		batch.begin();
 		update();
 		for(Sprite sprite : sceneSprite){sprite.draw(batch);}
+		fontWord.draw(batch, "Welcome", w/4, h/2);
 		batch.end();
 	}
 	@Override
@@ -67,11 +66,17 @@ public class Welcome extends ApplicationAdapter implements InputProcessor{
 	// Inputs
 
 	@Override
-	public boolean keyTyped(char character) { return false; }
+	public boolean keyTyped(char character) {
+		if(character == 'p') Angry_Bird.changeActivity(Angry_Bird.activities.play);
+		return false;
+	}
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) { return false; }
 	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) { return false; }
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		Angry_Bird.changeActivity(Angry_Bird.activities.play);
+		return false;
+	}
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) { return false; }
 	@Override

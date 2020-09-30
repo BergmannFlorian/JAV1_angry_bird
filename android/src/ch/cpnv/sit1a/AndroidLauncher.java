@@ -5,8 +5,6 @@ import android.os.Bundle;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
-import ch.cpnv.sit1a.activities.Welcome;
-import ch.cpnv.sit1a.activities.Play;
 import ch.cpnv.sit1a.Angry_Bird;
 
 public class AndroidLauncher extends AndroidApplication {

@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 
+import ch.cpnv.sit1a.Angry_Bird;
 import ch.cpnv.sit1a.models.Bird;
 import ch.cpnv.sit1a.models.Board;
 import ch.cpnv.sit1a.models.Bubble;
@@ -35,7 +36,9 @@ public class Play extends ApplicationAdapter implements InputProcessor{
 
 	// ------------------------------------------------------------
 	// Main methods
-
+	public Play(){
+		create();
+	}
 	@Override
 	public void create () {
 		voc = vocSource.pickAVoc();
@@ -114,6 +117,7 @@ public class Play extends ApplicationAdapter implements InputProcessor{
 	public boolean keyTyped(char character) {
 		if(character == 'r')resetBird();
 		if(character == 't')resetScene();
+		if(character == 'p')Angry_Bird.changeActivity(Angry_Bird.activities.welcome);;
 		return false;
 	}
 	@Override
