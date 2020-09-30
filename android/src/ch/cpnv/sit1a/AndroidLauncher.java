@@ -7,12 +7,13 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 import ch.cpnv.sit1a.activities.Welcome;
 import ch.cpnv.sit1a.activities.Play;
+import ch.cpnv.sit1a.Angry_Bird;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new Play(), config);
+		initialize(new Angry_Bird(), config);
 	}
 }
