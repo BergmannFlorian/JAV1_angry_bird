@@ -23,6 +23,7 @@ public class Angry_Bird extends ApplicationAdapter{
 	public void render () {
 		activity.render();
 	}
+
 	public static void changeActivity(activities toActivity){
 		if(toActivity == activities.play)activity = playActivity;
 		else if(toActivity == activities.welcome)activity = welcomeActivity;

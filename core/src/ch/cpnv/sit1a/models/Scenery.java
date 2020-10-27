@@ -90,7 +90,7 @@ public class Scenery {
             for(PhysicalObject object2 : sceneObject){
                 if(object1.overlaps(object2)){
                     overlaps = true;
-                    object1.translateY(object2.getHeight());
+                    object1.setY(object2.getY()+object2.getHeight());
                 }
             }
         }while(overlaps);
