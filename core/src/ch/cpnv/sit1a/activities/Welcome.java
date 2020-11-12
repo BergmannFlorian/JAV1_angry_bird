@@ -16,6 +16,8 @@ import java.util.HashMap;
 
 import ch.cpnv.sit1a.Angry_Bird;
 import ch.cpnv.sit1a.models.Button;
+import ch.cpnv.sit1a.models.data.Language;
+import ch.cpnv.sit1a.providers.VocProvider;
 
 public class Welcome extends ApplicationAdapter implements InputProcessor{
 	private SpriteBatch batch;
@@ -26,6 +28,7 @@ public class Welcome extends ApplicationAdapter implements InputProcessor{
 	private String lang1, lang2, displayLang1, displayLang2;
 	private ArrayList<Button> listButtonLeft, listButtonRight;
 	private Button playButton;
+	private ArrayList<Language> languages = VocProvider.getInstance().getLanguages();
 
 	// ------------------------------------------------------------
 	// Main methods
@@ -89,18 +92,15 @@ public class Welcome extends ApplicationAdapter implements InputProcessor{
 		float dt = Gdx.graphics.getDeltaTime();
 	}
 	public void generateButton(int posXleft, int posXright){
-		Button button = new Button(posXleft, (int)h-500, 2, "Français", "fr");
-		listButtonLeft.add(button);
-		button = new Button(posXright, (int)h-500, 2, "Français", "fr");
-		listButtonRight.add(button);
-		button = new Button(posXleft, (int)h-800, 2, "Anglais", "en");
-		listButtonLeft.add(button);
-		button = new Button(posXright, (int)h-800, 2, "Anglais", "en");
-		listButtonRight.add(button);
-		button = new Button(posXleft, (int)h-1100, 2, "Espagnol", "es");
-		listButtonLeft.add(button);
-		button = new Button(posXright, (int)h-1100, 2, "Espagnol", "es");
-		listButtonRight.add(button);
+		int startY = 500;
+		Button button;
+		for (Language language : languages) {
+			button = new Button(posXleft, (int)h-startY, 2, language.getDisplayName(), language.getISO_639_1());
+			listButtonLeft.add(button);
+			button = new Button(posXright, (int)h-startY, 2, language.getDisplayName(), language.getISO_639_1());
+			listButtonRight.add(button);
+			startY += 200;
+		}
 	}
 
 	// ------------------------------------------------------------
