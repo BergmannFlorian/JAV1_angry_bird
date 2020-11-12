@@ -17,6 +17,9 @@ public class Button extends PhysicalObject {
     public Button(int posX, int posY, float scal, String text, String value){
         super(new Texture("button.png"), posX, posY, scal);
 
+        this.text = text;
+        this.value = value;
+
         fontWord = new BitmapFont();
         fontWord.setColor(Color.WHITE);
         fontWord.getData().setScale(5);
@@ -27,6 +30,6 @@ public class Button extends PhysicalObject {
     @Override
     public void draw(Batch batch) {
         super.draw(batch);
-        fontWord.draw(batch, text, this.getX()+10,this.getY()+(this.getHeight()/2));
+        fontWord.draw(batch, text, this.getX()+10,this.getY()+100);
     }
 }

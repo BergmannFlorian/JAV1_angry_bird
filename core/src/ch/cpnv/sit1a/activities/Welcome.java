@@ -9,16 +9,21 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import ch.cpnv.sit1a.Angry_Bird;
+import ch.cpnv.sit1a.models.Button;
 
 public class Welcome extends ApplicationAdapter implements InputProcessor{
 	private SpriteBatch batch;
 	private float w;
 	private float h;
 	private ArrayList<Sprite> sceneSprite;
-	private BitmapFont fontWord;
+	private BitmapFont titleText, langText;
+	private String lang1, lang2;
+	private ArrayList<Button> listButtonLeft, listButtonRight;
 
 	// ------------------------------------------------------------
 	// Main methods
@@ -31,14 +36,23 @@ public class Welcome extends ApplicationAdapter implements InputProcessor{
 		h = Gdx.graphics.getHeight();
 		batch = new SpriteBatch();
 		sceneSprite = new ArrayList<Sprite>();
+		listButtonLeft = new ArrayList<>();
+		listButtonRight = new ArrayList<>();
 
 		Sprite background = new Sprite(new Texture("background.jpg"));
 		background.setSize(w, h);
 		sceneSprite.add(background);
 
-		fontWord = new BitmapFont();
-		fontWord.setColor(Color.BLACK);
-		fontWord.getData().setScale(20);
+		titleText = new BitmapFont();
+		langText = new BitmapFont();
+		titleText.setColor(Color.BLACK);
+		langText.setColor(Color.BLACK);
+		titleText.getData().setScale(10);
+		langText.getData().setScale(5);
+
+		int posXleft = 500;
+		int posXright = 1000;
+		this.generateButton(posXleft, posXright);
 
 		Gdx.input.setInputProcessor(this);
 	}
@@ -47,7 +61,16 @@ public class Welcome extends ApplicationAdapter implements InputProcessor{
 		batch.begin();
 		update();
 		for(Sprite sprite : sceneSprite){sprite.draw(batch);}
-		fontWord.draw(batch, "Welcome", w/4, h/2);
+		titleText.draw(batch, "Angry Wird", w/3, h-50);
+		String displayLang1 = lang1 == null ? "(choisir)" : lang1;
+		String displayLang2 = lang2 == null ? "(choisir)" : lang2;
+		langText.draw(batch, "Exercice de "+displayLang1+" en "+displayLang2, w/3, h-250);
+		for (Button button: listButtonLeft) {
+			button.draw(batch);
+		}
+		for (Button button: listButtonRight) {
+			button.draw(batch);
+		}
 		batch.end();
 	}
 	@Override
@@ -60,6 +83,20 @@ public class Welcome extends ApplicationAdapter implements InputProcessor{
 
 	public void update(){
 		float dt = Gdx.graphics.getDeltaTime();
+	}
+	public void generateButton(int posXleft, int posXright){
+		Button button = new Button(posXleft, (int)h-500, 2, "Français", "fr");
+		listButtonLeft.add(button);
+		button = new Button(posXright, (int)h-500, 2, "Français", "fr");
+		listButtonRight.add(button);
+		button = new Button(posXleft, (int)h-800, 2, "Anglais", "en");
+		listButtonLeft.add(button);
+		button = new Button(posXright, (int)h-800, 2, "Anglais", "en");
+		listButtonRight.add(button);
+		button = new Button(posXleft, (int)h-1100, 2, "Espagnol", "es");
+		listButtonLeft.add(button);
+		button = new Button(posXright, (int)h-1100, 2, "Espagnol", "es");
+		listButtonRight.add(button);
 	}
 
 	// ------------------------------------------------------------
