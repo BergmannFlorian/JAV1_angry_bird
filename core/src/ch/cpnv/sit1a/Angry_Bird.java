@@ -12,6 +12,7 @@ import java.util.Stack;
 import ch.cpnv.sit1a.activities.Play;
 import ch.cpnv.sit1a.activities.Welcome;
 import ch.cpnv.sit1a.models.data.Language;
+import ch.cpnv.sit1a.test.SemanticWordTest;
 
 public class Angry_Bird extends ApplicationAdapter{
 
@@ -39,6 +40,10 @@ public class Angry_Bird extends ApplicationAdapter{
 
 		screens = new Stack<>();
 		screens.push(playActivity);
+
+//		test
+		SemanticWordTest.addTranslationTest();
+		SemanticWordTest.getValueTest();
 	}
 	@Override
 	public void render () {
