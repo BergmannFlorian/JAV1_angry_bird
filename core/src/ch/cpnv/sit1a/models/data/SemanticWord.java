@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class SemanticWord {
     private HashMap<String, Word> values;
-    public  SemanticWord(){
+    public SemanticWord(){
         values = new HashMap<>();
     }
     public void addTranslation(String lang, Word value){
