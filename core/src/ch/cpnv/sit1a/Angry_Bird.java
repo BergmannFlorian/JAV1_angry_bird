@@ -62,6 +62,8 @@ public class Angry_Bird extends ApplicationAdapter{
 		langFrom = newLangFrom;
 		langTo = newLangTo;
 	}
+	public static String getLangFrom(){ return langFrom; }
+	public static String getLangTo(){ return langTo; }
 	public enum activities{
 		play,
 		welcome
