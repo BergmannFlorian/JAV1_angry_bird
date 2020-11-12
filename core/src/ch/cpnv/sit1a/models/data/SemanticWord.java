@@ -11,11 +11,11 @@ public class SemanticWord {
         values = new HashMap<>();
     }
     public void addTranslation(String lang, String value) throws DuplicatedTranslationException {
-        if(values.containsKey(lang)) throw new DuplicatedTranslationException("The translation "+lang+" : "+value+" is alreday present");
+        if(values.containsKey(lang)) throw new DuplicatedTranslationException("The translation "+lang+" : "+value+" alreday present");
         values.put(lang, value);
     }
     public String getValue(String lang) throws TranslationNotExistException {
-        if(!values.containsKey(lang)) throw new TranslationNotExistException("Translation "+lang+" does't exist");
+        if(!values.containsKey(lang)) throw new TranslationNotExistException("Translation "+lang+" does not exist");
         return values.get(lang);
     }
 }
