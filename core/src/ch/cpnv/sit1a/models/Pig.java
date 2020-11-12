@@ -3,6 +3,7 @@ package ch.cpnv.sit1a.models;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
+import ch.cpnv.sit1a.customException.TranslationNotExistException;
 import ch.cpnv.sit1a.models.data.SemanticWord;
 import ch.cpnv.sit1a.models.data.Word;
 
@@ -16,7 +17,7 @@ public class Pig extends TextualObject {
         this.word = word;
     }
 
-    public Bubble showOrHiddeBubble(){
+    public Bubble showOrHiddeBubble() throws TranslationNotExistException {
         bubble= bubble == null ? new Bubble(this) : null;
         return bubble;
     }

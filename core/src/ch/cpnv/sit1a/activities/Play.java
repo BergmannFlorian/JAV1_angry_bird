@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 
 import ch.cpnv.sit1a.Angry_Bird;
+import ch.cpnv.sit1a.customException.TranslationNotExistException;
 import ch.cpnv.sit1a.models.Bird;
 import ch.cpnv.sit1a.models.Board;
 import ch.cpnv.sit1a.models.Bubble;
@@ -138,7 +139,12 @@ public class Play extends ApplicationAdapter implements InputProcessor{
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		PhysicalObject object = scene.touch(new Vector2(screenX, h - screenY));
 		if(object != null && object.getClass() == Pig.class){
-			Bubble bubble = ((Pig) object).showOrHiddeBubble();
+			Bubble bubble = null;
+			try {
+				bubble = ((Pig) object).showOrHiddeBubble();
+			} catch (TranslationNotExistException e) {
+				e.printStackTrace();
+			}
 			if ((bubble != null)) {pigBubble.add((Pig) object);
 			} else { pigBubble.remove((Pig) object); }
 		}

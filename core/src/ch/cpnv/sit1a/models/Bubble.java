@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import javax.xml.datatype.Duration;
 
 import ch.cpnv.sit1a.Angry_Bird;
+import ch.cpnv.sit1a.customException.TranslationNotExistException;
 import ch.cpnv.sit1a.models.data.Word;
 
 public class Bubble extends TextualObject {
@@ -16,7 +17,7 @@ public class Bubble extends TextualObject {
     private BitmapFont font;
     private GlyphLayout glyph;
 
-    public Bubble(Pig pig) {
+    public Bubble(Pig pig) throws TranslationNotExistException {
         super(new Texture("bubble.png"), (int)pig.getX(), (int)(pig.getY()+pig.getHeight()), 1, pig.getWord());
         font = new BitmapFont();
         font.setColor(Color.BLACK);

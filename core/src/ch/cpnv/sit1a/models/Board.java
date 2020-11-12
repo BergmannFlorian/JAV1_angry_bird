@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import ch.cpnv.sit1a.Angry_Bird;
+import ch.cpnv.sit1a.customException.TranslationNotExistException;
 import ch.cpnv.sit1a.models.data.SemanticWord;
 import ch.cpnv.sit1a.models.data.Word;
 
@@ -44,7 +45,11 @@ public class Board extends Sprite {
     @Override
     public void draw(Batch batch) {
         super.draw(batch);
-        fontWord.draw(batch, word.getValue(Angry_Bird.getLangFrom()), this.getX()+(this.getWidth()/6),this.getY()+(this.getHeight()/2));
+        try {
+            fontWord.draw(batch, word.getValue(Angry_Bird.getLangFrom()), this.getX()+(this.getWidth()/6),this.getY()+(this.getHeight()/2));
+        } catch (TranslationNotExistException e) {
+            e.printStackTrace();
+        }
         fontScore.draw(batch, "Score : "+score, this.getX()+(this.getWidth()*3/4),this.getY()+(this.getHeight()/2));
     }
 }
