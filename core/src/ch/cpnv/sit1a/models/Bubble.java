@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 
 import javax.xml.datatype.Duration;
 
+import ch.cpnv.sit1a.Angry_Bird;
 import ch.cpnv.sit1a.models.data.Word;
 
 public class Bubble extends TextualObject {
@@ -20,7 +21,7 @@ public class Bubble extends TextualObject {
         font = new BitmapFont();
         font.setColor(Color.BLACK);
         font.getData().setScale(3);
-        glyph = new GlyphLayout(font, word.getValue1());
+        glyph = new GlyphLayout(font, word.getValue(Angry_Bird.getLangTo()));
         this.setSize((float)(glyph.width*1.5), glyph.height*4);
         this.setX(this.getX()-(this.getWidth()/2));
     }

@@ -6,17 +6,17 @@ import java.util.ArrayList;
 
 public class Vocabulary {
     private String vocName;
-    private ArrayList<Word> words = new ArrayList<Word>();
+    private ArrayList<SemanticWord> words = new ArrayList<>();
 
     public Vocabulary(String vocName){
         this.vocName = vocName;
     }
 
-    public void addWord(Word word){
+    public void addSemanticWord(SemanticWord word){
         words.add(word);
     }
 
-    public Word pickAWord(){
+    public SemanticWord pickAWord(){
         return words.get(MathUtils.random(0, words.size()-1));
     }
 }
