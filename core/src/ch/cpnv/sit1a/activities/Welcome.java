@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -22,8 +23,9 @@ public class Welcome extends ApplicationAdapter implements InputProcessor{
 	private float h;
 	private ArrayList<Sprite> sceneSprite;
 	private BitmapFont titleText, langText;
-	private String lang1, lang2;
+	private String lang1, lang2, displayLang1, displayLang2;
 	private ArrayList<Button> listButtonLeft, listButtonRight;
+	private Button playButton;
 
 	// ------------------------------------------------------------
 	// Main methods
@@ -38,6 +40,8 @@ public class Welcome extends ApplicationAdapter implements InputProcessor{
 		sceneSprite = new ArrayList<Sprite>();
 		listButtonLeft = new ArrayList<>();
 		listButtonRight = new ArrayList<>();
+		displayLang1 = "(choisir)";
+		displayLang2 = "(choisir)";
 
 		Sprite background = new Sprite(new Texture("background.jpg"));
 		background.setSize(w, h);
@@ -50,9 +54,10 @@ public class Welcome extends ApplicationAdapter implements InputProcessor{
 		titleText.getData().setScale(10);
 		langText.getData().setScale(5);
 
-		int posXleft = 500;
-		int posXright = 1000;
+		int posXleft = 800;
+		int posXright = 1300;
 		this.generateButton(posXleft, posXright);
+		playButton = new Button((int)w/2, (int)h/2, 2, "Play", "");
 
 		Gdx.input.setInputProcessor(this);
 	}
@@ -62,8 +67,6 @@ public class Welcome extends ApplicationAdapter implements InputProcessor{
 		update();
 		for(Sprite sprite : sceneSprite){sprite.draw(batch);}
 		titleText.draw(batch, "Angry Wird", w/3, h-50);
-		String displayLang1 = lang1 == null ? "(choisir)" : lang1;
-		String displayLang2 = lang2 == null ? "(choisir)" : lang2;
 		langText.draw(batch, "Exercice de "+displayLang1+" en "+displayLang2, w/3, h-250);
 		for (Button button: listButtonLeft) {
 			button.draw(batch);
@@ -71,6 +74,7 @@ public class Welcome extends ApplicationAdapter implements InputProcessor{
 		for (Button button: listButtonRight) {
 			button.draw(batch);
 		}
+		if(lang1 != null && lang2 != null)playButton.draw(batch);
 		batch.end();
 	}
 	@Override
@@ -111,7 +115,23 @@ public class Welcome extends ApplicationAdapter implements InputProcessor{
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) { return false; }
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		Angry_Bird.changeActivity(Angry_Bird.activities.play);
+		for (Button mybutton : listButtonLeft) {
+			if(mybutton.touch(new Vector2(screenX, h - screenY))){
+				lang1 = mybutton.getValue();
+				displayLang1 = mybutton.getText();
+			}
+		}
+		for (Button mybutton : listButtonRight) {
+			if(mybutton.touch(new Vector2(screenX, h - screenY))){
+				lang2 = mybutton.getValue();
+				displayLang2 = mybutton.getText();
+			}
+		}
+		if(lang1 != null)listButtonLeft.clear();
+		if(lang2 != null)listButtonRight.clear();
+		if(playButton.touch(new Vector2(screenX, h - screenY))){
+			Angry_Bird.changeActivity(Angry_Bird.activities.play);
+		}
 		return false;
 	}
 	@Override

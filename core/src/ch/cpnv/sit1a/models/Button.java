@@ -26,10 +26,11 @@ public class Button extends PhysicalObject {
     }
 
     public String getValue(){ return value; }
+    public String getText(){ return text; }
 
     @Override
     public void draw(Batch batch) {
         super.draw(batch);
-        fontWord.draw(batch, text, this.getX()+10,this.getY()+100);
+        fontWord.draw(batch, text, this.getX()+10,this.getY()+80);
     }
 }
