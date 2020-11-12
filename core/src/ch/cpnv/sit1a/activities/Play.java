@@ -84,9 +84,9 @@ public class Play extends ApplicationAdapter implements InputProcessor{
 		wasp.move(dt);
 		PhysicalObject itemOverlaps = scene.overlaps(bird);
 		if(itemOverlaps!=null){
+			System.out.println(itemOverlaps.getClass());
 			if(itemOverlaps.destructible())scene.removeObject(itemOverlaps);
 			if(itemOverlaps.getClass() == Tnt.class)board.decreaseScore();
-			if(itemOverlaps.getClass() == Wasp.class)board.decreaseScore(5);
 			if(itemOverlaps.getClass() == Pig.class) {
 				pigBubble.remove((Pig)itemOverlaps);
 				if(((Pig) itemOverlaps).getWord() == board.getWord()){
@@ -95,9 +95,15 @@ public class Play extends ApplicationAdapter implements InputProcessor{
 				}else board.increaseScore();
 			}
 			resetBird();
-			if(board.getScore() < 0)resetScene();
 		}
-		if(wasp.overlaps(bird))resetBird();
+		if(wasp.overlaps(bird)){
+			resetBird();
+			board.decreaseScore(5);
+		}
+		if(board.getScore() < 0){
+			Angry_Bird.changeActivity(Angry_Bird.activities.play);
+			resetScene();
+		}
 	}
 	public void resetBird(){
 		bird.reset();
