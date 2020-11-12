@@ -130,6 +130,7 @@ public class Welcome extends ApplicationAdapter implements InputProcessor{
 		if(lang1 != null)listButtonLeft.clear();
 		if(lang2 != null)listButtonRight.clear();
 		if(playButton.touch(new Vector2(screenX, h - screenY))){
+			Angry_Bird.changeLanguage(lang1, lang2);
 			Angry_Bird.changeActivity(Angry_Bird.activities.play);
 		}
 		return false;

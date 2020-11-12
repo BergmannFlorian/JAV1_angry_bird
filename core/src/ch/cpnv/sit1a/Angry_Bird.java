@@ -11,6 +11,7 @@ import java.util.Stack;
 
 import ch.cpnv.sit1a.activities.Play;
 import ch.cpnv.sit1a.activities.Welcome;
+import ch.cpnv.sit1a.models.data.Language;
 
 public class Angry_Bird extends ApplicationAdapter{
 
@@ -21,8 +22,13 @@ public class Angry_Bird extends ApplicationAdapter{
 	private static HashMap<activities, ApplicationAdapter> mapActivities;
 	private static Stack<ApplicationAdapter> screens;
 
+	private static String langFrom, langTo;
+
 	@Override
 	public void create () {
+		langFrom = "fr";
+		langTo = "en";
+
 		playActivity = new Play();
 		welcomeActivity = new Welcome();
 		activity = welcomeActivity;
@@ -52,7 +58,10 @@ public class Angry_Bird extends ApplicationAdapter{
 	public static void closeActivity(){
 		screens.pop();
 	}
-
+	public static void changeLanguage(String newLangFrom, String newLangTo){
+		langFrom = newLangFrom;
+		langTo = newLangTo;
+	}
 	public enum activities{
 		play,
 		welcome
